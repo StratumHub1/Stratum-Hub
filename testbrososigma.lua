@@ -80,7 +80,7 @@ local Toggle = MainTab:CreateToggle({
           local args = {}
           local services = game:GetService("ReplicatedStorage"):WaitForChild("Packages", 9e9):WaitForChild("Knit", 9e9):WaitForChild("Services", 9e9):GetChildren()
 
-          for i = 13, 39 do
+          for i = 1, 39 do
             local success, err = pcall(function()
               local target = services[i]
               if target and target:FindFirstChild("RE") then
@@ -136,7 +136,7 @@ local Toggle = MainTab:CreateToggle({
 
                     local services = ReplicatedStorage:WaitForChild("Packages", 9e9):WaitForChild("Knit", 9e9):WaitForChild("Services", 9e9):GetChildren()
 
-                    for i = 13, 39 do
+                    for i = 1, 39 do
                         local success, err = pcall(function()
                             local remoteFunction = services[i]
                             if remoteFunction then
@@ -154,7 +154,7 @@ local Toggle = MainTab:CreateToggle({
                         end
                     end
 
-                    task.wait()
+                    task.wait(0.1)
                 end
             end)
         else
