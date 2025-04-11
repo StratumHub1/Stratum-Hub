@@ -111,6 +111,7 @@ local Toggle = MainTab:CreateToggle({
       hrp.CFrame = originalCFrame
 
 local AutoRebirthBest = false
+local upgradeAmountLabel = player.PlayerGui:WaitForChild("MainUI"):WaitForChild("Menus")WaitForChild("UpgradesFrame"):WaitForChild("Main"):WaitForChild("List"):WaitForChild("Holder"):WaitForChild("Upgrades"):WaitForChild("RebirthButtons"):WaitForChild("Main"):WaitForChild("UpgradeAmount")
 
 local Toggle = MainTab:CreateToggle({
     Name = "Auto Rebirth |Best Unlocked|",
@@ -121,9 +122,6 @@ local Toggle = MainTab:CreateToggle({
             AutoRebirthBest = true
             spawn(function()
                 while AutoRebirthBest do
-                    local upgradeAmountLabel = player.PlayerGui
-                        :WaitForChild("MainUI"):WaitForChild("Menus"):WaitForChild("UpgradesFrame"):WaitForChild("Main"):WaitForChild("List"):WaitForChild("Holder"):WaitForChild("Upgrades"):WaitForChild("RebirthButtons"):WaitForChild("Main"):WaitForChild("UpgradeAmount")
-
                     local textValue = upgradeAmountLabel.Text
                     local extractedValue = tonumber(textValue:match("%((%d+)/"))
                     if not extractedValue then
@@ -134,27 +132,25 @@ local Toggle = MainTab:CreateToggle({
                     local finalValue = extractedValue + offset
                     local args = { [1] = finalValue }
 
-                    local services = ReplicatedStorage:WaitForChild("Packages", 9e9):WaitForChild("Knit", 9e9):WaitForChild("Services", 9e9):GetChildren()
+                    local services = ReplicatedStorageWaitForChild("Packages", 9e9):WaitForChild("Knit", 9e9):WaitForChild("Services", 9e9):GetChildren()
 
                     for i = 1, 39 do
-                        local success, err = pcall(function()
-                            local remoteFunction = services[i]
-                            if remoteFunction then
-                                remoteFunction = remoteFunction:FindFirstChild("RF")
-                                if remoteFunction then
-                                    local method = remoteFunction:FindFirstChild("jag känner en bot, hon heter anna, anna heter hon")
-                                    if method then
-                                        method:InvokeServer(unpack(args))
+                        spawn(function()
+                            pcall(function()
+                                local remoteService = services[i]
+                                if remoteService then
+                                    local rf = remoteService:FindFirstChild("RF")
+                                    if rf then
+                                        local method = rf:FindFirstChild("jag känner en bot, hon heter anna, anna heter hon")
+                                        if method then
+                                            method:InvokeServer(unpack(args))
+                                        end
                                     end
                                 end
-                            end
+                            end)
                         end)
-
-                        if not success then
-                        end
                     end
-
-                    task.wait(0.1)
+                    task.wait(0.5)  -- Delay between full cycles
                 end
             end)
         else
@@ -162,6 +158,7 @@ local Toggle = MainTab:CreateToggle({
         end
     end,
 })
+
 
 local Section = MainTab:CreateSection("Auto Stuff")
 local AutoClaimPlaytimeRewards = false
